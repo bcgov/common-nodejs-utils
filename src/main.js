@@ -20,7 +20,7 @@
 
 'use strict';
 
-export { bucketExists, createBucketIfRequired, expiredTopLevelObjects, getObject, isExpired, isExpired, listBucket } from '../libs/bucket';
+export { bucketExists, createBucketIfRequired, expiredTopLevelObjects, getObject, isExpired, listBucket } from '../libs/bucket';
 export * from './constants';
 export { logger, started } from './libs/logger';
 
