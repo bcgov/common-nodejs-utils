@@ -20,8 +20,9 @@
 
 'use strict';
 
-import config from '../config';
+import { REGION } from '../constants';
 import { logger } from './logger';
+
 
 /**
  * Crete a new bucket
@@ -29,7 +30,7 @@ import { logger } from './logger';
  * @param {String} bucket The name of the bucket
  */
 export const makeBucket = (client, bucket) => new Promise((resolve, reject) => {
-  client.makeBucket(bucket, config.get('minio:region'), (err) => {
+  client.makeBucket(bucket, REGION, (err) => {
     if (err) {
       reject(err);
       return;
