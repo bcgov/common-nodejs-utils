@@ -7,15 +7,31 @@ This project is intended to act as a place where NodeJS developers can store and
 
 ## Usage
 
-Add the following to your `package.json` file; update the version number at the end as needed.
+Install via `npm` as you would with any other package by supplying both the repo URL and branch or tag reference. In the example below the tag *v0.0.2* is used.
+
+```console
+npm install git+ssh://git@github.com/bcgov/common-nodejs.git#v0.0.2
+```
+
+You can also directly add it to your `package.json` file by inserting the following line into your dependencies section:
 
 ```json
-"@bcgov/common-nodejs": "git+ssh://git@github.com/bcgov/common-nodejs.git#v0.0.2"
+"@bcgov/common-nodejs": "git+ssh://git@github.com/bcgov/common-nodejs.git#v0.0.3",
 ```
+
+Once you installed you can can use it like any other module:
+
+```javascript
+import { errorWithCode } from '@bcgov/common-nodejs`;
+```
+
+\* If you don't have ssh access you can use the repo's https based URL.
+
 
 ## Project Status / Goals / Roadmap
 
 This project is **active**. 
+
 
 ## Getting Help or Reporting an Issue
 
@@ -24,7 +40,9 @@ Send a note to bcdevexchange@gov.bc.ca and you'll get routed to the right person
 
 ## How to Contribute
 
-*If you are including a Code of Conduct, make sure that you have a [CODE_OF_CONDUCT.md](SAMPLE-CODE_OF_CONDUCT.md) file, and include the following text in here in the README:*
+Create a pull request with your code. Its really that simple.
+
+\* If you are including a Code of Conduct, make sure that you have a [CODE_OF_CONDUCT.md](SAMPLE-CODE_OF_CONDUCT.md) file, and include the following text in here in the README:\*
 "Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms."
 
 ## License
