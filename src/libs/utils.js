@@ -20,11 +20,6 @@
 
 'use strict';
 
-import cp from 'child_process';
-import util from 'util';
-
-const exec = util.promisify(cp.exec);
-
 /**
  * Check if a string consits of [Aa-Az], [0-9], -, _, and %.
  *
@@ -41,16 +36,13 @@ export const errorWithCode = (message, code) => {
 
 /**
  * Helper function to wrap express routes to handle rejected promises
- *
+ * Make sure to `.catch()` any errors and pass them along to the `next()`
+ * middleware in the chain, in this case the error handler.
  * @param {Function} fn The `next()` function to call
  */
-export const asyncMiddleware = fn =>
-  // Make sure to `.catch()` any errors and pass them along to the `next()`
-  // middleware in the chain, in this case the error handler.
-  (req, res, next) => {
-    Promise.resolve(fn(req, res, next))
-      .catch(next);
-  };
+export const asyncMiddleware = fn => (req, res, next) => Promise
+  .resolve(fn(req, res, next))
+  .catch(next);
 
 /**
  * Convert a stream into a buffer

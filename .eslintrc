@@ -1,0 +1,16 @@
+{
+  "env": {
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [],
+  "parser": "babel-eslint",
+  "extends": "airbnb-base",
+  "rules": {
+    "strict": 0,
+    "linebreak-style": 0
+  }
+}
