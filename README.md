@@ -22,7 +22,7 @@ You can also directly add it to your `package.json` file by inserting the follow
 Once you installed you can can use it like any other module:
 
 ```javascript
-import { errorWithCode } from '@bcgov/common-nodejs`;
+import { errorWithCode } from '@bcgov/common-nodejs';
 ```
 
 \* If you don't have ssh access you can use the repo's https based URL.
