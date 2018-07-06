@@ -1,17 +1,21 @@
 
 ## About
 
+Code duplication is a bit issue. As developers move from from project to project we often copy and paste snippets of code between projects. While this is quick and easy its very hard to maintain.
+
+This project is intended to act as a place where NodeJS developers can store and share useful snippets of code.
+
 ## Usage
 
-## Build
+Add the following to your `package.json` file; update the version number at the end as needed.
 
-## Deployment
+```json
+"@bcgov/common-nodejs": "git+ssh://git@github.com/bcgov/common-nodejs.git#v0.0.2"
+```
 
 ## Project Status / Goals / Roadmap
 
 This project is **active**. 
-
-Progress to date, known issues, or new features will be documented on our publicly available Trello board [here](https://trello.com/b/HGJpxQdS/mobile-pathfinder).
 
 ## Getting Help or Reporting an Issue
 
