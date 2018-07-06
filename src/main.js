@@ -23,4 +23,4 @@
 export * from './constants';
 export { bucketExists, createBucketIfRequired, expiredTopLevelObjects, getObject, isExpired, listBucket } from './libs/bucket';
 export { logger, started } from './libs/logger';
-
+export { asyncMiddleware, errorWithCode, streamToBuffer } from './libs/utils';

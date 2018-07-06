@@ -51,3 +51,16 @@ export const asyncMiddleware = fn =>
     Promise.resolve(fn(req, res, next))
       .catch(next);
   };
+
+/**
+ * Convert a stream into a buffer
+ *
+ * @param {ReadStream} stream The stream containing the data to be converted
+ * @returns A resolved `Promise` with the buffer or rejected in the case of failure
+ */
+export const streamToBuffer = stream => new Promise((resolve, reject) => {
+  const buffers = [];
+  stream.on('error', reject);
+  stream.on('data', data => buffers.push(data));
+  stream.on('end', () => resolve(Buffer.concat(buffers)));
+});
