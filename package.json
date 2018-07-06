@@ -1,5 +1,5 @@
 {
-  "name": "common-nodejs",
+  "name": "@bcgov/common-nodejs",
   "version": "0.0.1",
   "description": "",
   "engine": "node 8.4.0",
