@@ -12,9 +12,14 @@
     "esm": "^3.0.62",
     "ip": "^1.1.4",
     "minio": "^6.0.0",
+    "request": "^2.87.0",
+    "rsa-pem-from-mod-exp": "^0.8.4",
     "winston": "^3.0.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-preset-airbnb": "^2.4.0",
     "eslint": "^5.0.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-config-defaults": "^9.0.0",
