@@ -1,5 +1,5 @@
 {
-  "name": "@bcgov/common-nodejs",
+  "name": "@bcgov/nodejs-common-utils",
   "version": "0.0.1",
   "description": "",
   "engine": "node 8.4.0",
@@ -33,9 +33,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:bcgov/common-nodejs.git"
+    "url": "git+ssh://git@github.com:bcgov/nodejs-common-utils.git"
   },
   "author": "Jason C. Leach <jason.leach@fullboar.ca>",
   "license": "Apache-2.0",
-  "homepage": "https://github.com:bcgov/common-nodejs#readme"
+  "homepage": "https://github.com:bcgov/nodejs-common-utils#readme"
 }
