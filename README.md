@@ -10,22 +10,22 @@ This project is intended to act as a place where NodeJS developers can store and
 Install via `npm` as you would with any other package by supplying both the repo URL and branch or tag reference. In the example below the tag *v0.0.2* is used.
 
 ```console
-npm install git+ssh://git@github.com/bcgov/common-nodejs.git#v0.0.2
+npm install git+ssh://git@github.com/bcgov/nodejs-common-utils.git#v0.0.1
 ```
 
 You can also directly add it to your `package.json` file by inserting the following line into your dependencies section:
 
 ```json
-"@bcgov/common-nodejs": "git+ssh://git@github.com/bcgov/common-nodejs.git#v0.0.3",
+"@bcgov/nodejs-common-utils": "git+ssh://git@github.com/bcgov/nodejs-common-utils.git#v0.0.1",
 ```
 
 Once you installed you can can use it like any other module:
 
 ```javascript
-import { errorWithCode } from '@bcgov/common-nodejs';
+import { errorWithCode } from '@bcgov/nodejs-common-utils';
 ```
 
-\* If you don't have ssh access you can use the repo's https based URL.
+\* You can also use the SSH protocol preferred.
 
 
 ## Project Status / Goals / Roadmap
