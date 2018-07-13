@@ -13,17 +13,14 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
-# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+# Package config files
 .grunt
-
-# babel configuration
 .babelrc
-
-# node-waf configuration
 .lock-wscript
-
+.jsbeautifyrc
 .eslintrc
 .eslintignore
+jsconfig.json
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build
