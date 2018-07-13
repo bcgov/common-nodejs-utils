@@ -1,5 +1,5 @@
 {
-  "name": "@fullboar/nodejs-common-utils",
+  "name": "@bcgov/nodejs-common-utils",
   "version": "0.0.1",
   "description": "",
   "engine": "node 8.4.0",
