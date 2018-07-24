@@ -22,6 +22,6 @@
 
 export * from './constants';
 export { getJwtCertificate } from './libs/auth';
-export { bucketExists, createBucketIfRequired, expiredTopLevelObjects, getObject, isExpired, listBucket } from './libs/bucket';
+export { bucketExists, createBucketIfRequired, expiredTopLevelObjects, getObject, isExpired, listBucket, presignedGetObject, statObject } from './libs/bucket';
 export { logger, started } from './libs/logger';
 export { asyncMiddleware, errorWithCode, streamToBuffer } from './libs/utils';
