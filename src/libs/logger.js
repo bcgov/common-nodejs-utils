@@ -78,7 +78,7 @@ export const logger = winston.createLogger(options);
  * @param {String} port The port the server is running on
  */
 export const started = (port, appName) => {
-  console.log(`${chalk.cyan(appName || 'Secure Sign')} API started ${chalk.green('✓')}`);
+  console.log(`${chalk.cyan(appName)} API started ${chalk.green('✓')}`);
   console.log(`${chalk.bold('\nAccess URLs:')}${divider}
                \nLocalhost: ${chalk.magenta(`http://localhost:${port}`)}
                \r      LAN: ${chalk.magenta(`http://${ip.address()}:${port}`)}
