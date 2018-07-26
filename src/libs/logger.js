@@ -25,6 +25,7 @@
 import chalk from 'chalk';
 import ip from 'ip';
 import winston from 'winston';
+import { ENVIRONMENTS } from '../constants';
 
 const options = {};
 const { combine, timestamp, printf } = winston.format;
@@ -32,7 +33,7 @@ const divider = chalk.gray('\n-----------------------------------');
 const myFormat = printf(info => `${info.timestamp} ${info.level}: ${info.message}`);
 
 // When testing log to a file for further analysis.
-if (process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV === ENVIRONMENTS.TEST) {
   options.transports = [
     new winston.transports.File({
       format: combine(
@@ -43,7 +44,7 @@ if (process.env.NODE_ENV === 'test') {
       level: 'info',
     }),
   ];
-} else if (process.env.NODE_ENV === 'production') {
+} else if (process.env.NODE_ENV === ENVIRONMENTS.PRODUCTION) {
   options.transports = [
     new winston.transports.File({
       format: combine(
@@ -76,14 +77,14 @@ export const logger = winston.createLogger(options);
  *
  * @param {String} port The port the server is running on
  */
-export const started = (port) => {
-  console.log(`${chalk.cyan('Secure Sign')} API started ${chalk.green('✓')}`);
+export const started = (port, appName) => {
+  console.log(`${chalk.cyan(appName)} API started ${chalk.green('✓')}`);
   console.log(`${chalk.bold('\nAccess URLs:')}${divider}
                \nLocalhost: ${chalk.magenta(`http://localhost:${port}`)}
                \r      LAN: ${chalk.magenta(`http://${ip.address()}:${port}`)}
                ${divider}`);
 
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === ENVIRONMENTS.DEVELOPMENT) {
     console.log(`${chalk.blue(`\nPress ${chalk.italic('CTRL-C')} to stop\n`)}`);
   }
 };
