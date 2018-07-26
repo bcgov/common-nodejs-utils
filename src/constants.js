@@ -24,6 +24,7 @@
 export const ENVIRONMENTS = {
   DEVELOPMENT: 'development',
   PRODUCTION: 'production',
+  TEST: 'test',
 };
 
 export const REGION = 'us-east-1';
