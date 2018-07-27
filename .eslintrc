@@ -3,12 +3,14 @@
     "jest": true
   },
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "ecmaVersion": 8,
     "sourceType": "module"
   },
-  "plugins": [],
+  "plugins": [
+    "jest"
+  ],
   "parser": "babel-eslint",
-  "extends": "airbnb-base",
+  "extends": ["airbnb-base", "plugin:jest/recommended"],
   "rules": {
     "strict": 0,
     "linebreak-style": 0
