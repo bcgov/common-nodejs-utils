@@ -19,8 +19,13 @@
 // Created by Jason Leach on 2018-07-20.
 //
 
-describe('Test monitoring routes', () => {
-  test.skip('The readiness probe should respond with 200 ', async () => {
+import { getJwtCertificate } from '../src/libs/auth';
 
+describe('Test authentication helpers', () => {
+  test('The certificate should be a valid PEM document', async () => {
+    const response = await getJwtCertificate('http://foo.com/');
+    expect(response).not.toBeNull();
+    expect(response).toContain('-----BEGIN RSA PUBLIC KEY-----');
+    expect(response).toContain('-----END RSA PUBLIC KEY-----');
   });
 });
