@@ -20,43 +20,38 @@
 
 'use strict';
 
-import request from 'request';
+import request from 'request-promise-native';
 import pemFromModAndExponent from 'rsa-pem-from-mod-exp';
 
 // eslint-disable-next-line import/prefer-default-export
-export const getJwtCertificate = ssoCertificateUrl => new Promise((resolve, reject) => {
+export const getJwtCertificate = async (ssoCertificateUrl) => {
   if (!ssoCertificateUrl) {
-    reject(new Error('No certificate URL provided'));
+    throw new Error('No certificate URL provided');
   }
 
-  request.get(ssoCertificateUrl, {}, (err, res, certsBody) => {
-    if (err) {
-      reject(err);
-      return;
-    }
+  const options = {
+    method: 'GET',
+    uri: ssoCertificateUrl,
+  };
 
-    const certsJson = JSON.parse(certsBody).keys[0];
-    const modulus = certsJson.n;
-    const exponent = certsJson.e;
-    const algorithm = certsJson.alg;
+  const body = await request(options);
+  const certsJson = JSON.parse(body).keys[0];
+  const modulus = certsJson.n;
+  const exponent = certsJson.e;
+  const algorithm = certsJson.alg;
 
-    if (!modulus) {
-      reject(new Error('No modulus'));
-      return;
-    }
+  if (!modulus) {
+    throw new Error('No modulus');
+  }
 
-    if (!exponent) {
-      reject(new Error('No exponent'));
-      return;
-    }
+  if (!exponent) {
+    throw new Error('No exponent');
+  }
 
-    if (!algorithm) {
-      reject(new Error('No algorithm'));
-      return;
-    }
+  if (!algorithm) {
+    throw new Error('No algorithm');
+  }
 
-    // build a certificate
-    const pem = pemFromModAndExponent(modulus, exponent);
-    resolve(pem);
-  });
-});
+  // build a certificate
+  return pemFromModAndExponent(modulus, exponent);
+};
