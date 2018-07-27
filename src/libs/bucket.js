@@ -182,6 +182,24 @@ export const statObject = (client, bucket, fileName) => new Promise((resolve, re
   });
 });
 
+/**
+ * Fetch the stats of a given object
+ *
+ * @param {Object} client The minio client
+ * @param {String} bucket The name of the bucket
+ * @param {String} fileName The name of the file to fetch the stats for
+ * @returns {Promise} Returns a resolved promise if success, rejected otherwise
+ */
+export const removeObject = (client, bucket, fileName) => new Promise((resolve, reject) => {
+  client.removeObject(bucket, fileName, (err) => {
+    if (err) {
+      reject(err);
+    }
+
+    resolve();
+  });
+});
+
 // HELPERS
 
 export const isExpired = (object, days) => {
