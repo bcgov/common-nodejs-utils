@@ -22,6 +22,7 @@
 
 import request from 'request';
 import pemFromModAndExponent from 'rsa-pem-from-mod-exp';
+import { logger } from './logger';
 
 // eslint-disable-next-line import/prefer-default-export
 export const getJwtCertificate = ssoCertificateUrl => new Promise((resolve, reject) => {
@@ -35,28 +36,40 @@ export const getJwtCertificate = ssoCertificateUrl => new Promise((resolve, reje
       return;
     }
 
-    const certsJson = JSON.parse(certsBody).keys[0];
-    const modulus = certsJson.n;
-    const exponent = certsJson.e;
-    const algorithm = certsJson.alg;
+    try {
+      const keys = JSON.parse(certsBody);
+      if (keys.lengh === 0) {
+        reject(new Error('No keys in certificate body'));
+      }
 
-    if (!modulus) {
-      reject(new Error('No modulus'));
-      return;
+      const certsJson = keys[0];
+      const modulus = certsJson.n;
+      const exponent = certsJson.e;
+      const algorithm = certsJson.alg;
+
+      if (!modulus) {
+        reject(new Error('No modulus'));
+        return;
+      }
+
+      if (!exponent) {
+        reject(new Error('No exponent'));
+        return;
+      }
+
+      if (!algorithm) {
+        reject(new Error('No algorithm'));
+        return;
+      }
+
+      // build a certificate
+      const pem = pemFromModAndExponent(modulus, exponent);
+      resolve(pem);
+    } catch (error) {
+      const message = 'Unable to parse certificate(s)';
+      logger.error(`${message}, error = ${error.message}`);
+
+      reject(new Error(message));
     }
-
-    if (!exponent) {
-      reject(new Error('No exponent'));
-      return;
-    }
-
-    if (!algorithm) {
-      reject(new Error('No algorithm'));
-      return;
-    }
-
-    // build a certificate
-    const pem = pemFromModAndExponent(modulus, exponent);
-    resolve(pem);
   });
 });
