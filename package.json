@@ -1,6 +1,6 @@
 {
   "name": "@bcgov/nodejs-common-utils",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "",
   "engine": "node 8.4.0",
   "main": "index.js",
@@ -15,7 +15,7 @@
     "esm": "^3.0.74",
     "ip": "^1.1.4",
     "minio": "^6.0.0",
-    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5",
     "rsa-pem-from-mod-exp": "^0.8.4",
     "winston": "^3.0.0"
   },

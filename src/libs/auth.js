@@ -20,56 +20,55 @@
 
 'use strict';
 
-import request from 'request';
+import request from 'request-promise-native';
 import pemFromModAndExponent from 'rsa-pem-from-mod-exp';
 import { logger } from './logger';
 
 // eslint-disable-next-line import/prefer-default-export
-export const getJwtCertificate = ssoCertificateUrl => new Promise((resolve, reject) => {
+export const getJwtCertificate = ssoCertificateUrl => new Promise(async (resolve, reject) => {
   if (!ssoCertificateUrl) {
     reject(new Error('No certificate URL provided'));
   }
 
-  request.get(ssoCertificateUrl, {}, (err, res, certsBody) => {
-    if (err) {
-      reject(err);
+  try {
+    const options = {
+      method: 'GET',
+      uri: ssoCertificateUrl,
+      json: true,
+    };
+    const response = await request(options);
+
+    if (response.keys && response.keys.length === 0) {
+      reject(new Error('No keys in certificate body'));
+    }
+
+    const certsJson = response.keys[0];
+    const modulus = certsJson.n;
+    const exponent = certsJson.e;
+    const algorithm = certsJson.alg;
+
+    if (!modulus) {
+      reject(new Error('No modulus'));
       return;
     }
 
-    try {
-      const keys = JSON.parse(certsBody);
-      if (keys.lengh === 0) {
-        reject(new Error('No keys in certificate body'));
-      }
-
-      const certsJson = keys[0];
-      const modulus = certsJson.n;
-      const exponent = certsJson.e;
-      const algorithm = certsJson.alg;
-
-      if (!modulus) {
-        reject(new Error('No modulus'));
-        return;
-      }
-
-      if (!exponent) {
-        reject(new Error('No exponent'));
-        return;
-      }
-
-      if (!algorithm) {
-        reject(new Error('No algorithm'));
-        return;
-      }
-
-      // build a certificate
-      const pem = pemFromModAndExponent(modulus, exponent);
-      resolve(pem);
-    } catch (error) {
-      const message = 'Unable to parse certificate(s)';
-      logger.error(`${message}, error = ${error.message}`);
-
-      reject(new Error(message));
+    if (!exponent) {
+      reject(new Error('No exponent'));
+      return;
     }
-  });
+
+    if (!algorithm) {
+      reject(new Error('No algorithm'));
+      return;
+    }
+
+    // build a certificate
+    const pem = pemFromModAndExponent(modulus, exponent);
+    resolve(pem);
+  } catch (error) {
+    const message = 'Unable to parse certificate(s)';
+    logger.error(`${message}, error = ${error.message}`);
+
+    reject(new Error(message));
+  }
 });
