@@ -21,7 +21,7 @@
 'use strict';
 
 export * from './constants';
-export { getJwtCertificate, fetchServiceAccountToken } from './libs/auth';
+export { getJwtCertificate, fetchServiceAccountToken, JWTServiceManager } from './libs/auth';
 export {
   bucketExists,
   createBucketIfRequired,
