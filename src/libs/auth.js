@@ -75,6 +75,22 @@ export const getJwtCertificate = ssoCertificateUrl =>
   });
 
 export const fetchServiceAccountToken = async options => {
+  if (!options.uri) {
+    throw new Error('A URL must be provided');
+  }
+
+  if (!options.grantType) {
+    throw new Error('The grant type must be provided');
+  }
+
+  if (!options.clientId) {
+    throw new Error('The clientId must be provided');
+  }
+
+  if (!options.clientSecret) {
+    throw new Error('The clientSecret must be provided');
+  }
+
   const ops = {
     method: 'POST',
     uri: options.uri,

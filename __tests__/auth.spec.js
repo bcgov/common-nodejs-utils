@@ -23,6 +23,35 @@ import { fetchServiceAccountToken, getJwtCertificate } from '../src/libs/auth';
 jest.mock('request-promise-native');
 
 describe('Test authentication module', () => {
+  test('A URL must be provided', async () => {
+    const options = {};
+    await expect(fetchServiceAccountToken(options)).rejects.toThrow(Error);
+  });
+
+  test('The grant type must be provided', async () => {
+    const options = {
+      uri: 'http://example.com/foo/bar/token',
+    };
+    await expect(fetchServiceAccountToken(options)).rejects.toThrow(Error);
+  });
+
+  test('The client ID must be provided', async () => {
+    const options = {
+      uri: 'http://example.com/foo/bar/token',
+      grant_type: 'client_credentials',
+    };
+    await expect(fetchServiceAccountToken(options)).rejects.toThrow(Error);
+  });
+
+  test('The client secret must be provided', async () => {
+    const options = {
+      uri: 'http://example.com/foo/bar/token',
+      grant_type: 'client_credentials',
+      clientId: 'hello-world',
+    };
+    await expect(fetchServiceAccountToken(options)).rejects.toThrow(Error);
+  });
+
   test('The service account should be a standard payload', async () => {
     const options = {
       uri: 'http://example.com/foo/bar/token',
