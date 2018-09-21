@@ -1,5 +1,9 @@
 # Release Notes
 
+## 0.0.15
+
+- Fix exporting JWTServiceManager
+
 ## 0.0.14
 
 - Add JWT Service Account token manager
