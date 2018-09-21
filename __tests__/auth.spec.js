@@ -32,6 +32,7 @@ describe('Test authentication module', () => {
     };
     const t = await fetchServiceAccountToken(options);
     expect(t).toBeDefined();
+    expect(typeof t).toBe('object');
     expect(t.access_token).toBeDefined();
     expect(t.expires_in).toBeDefined();
     expect(t.refresh_expires_in).toBeDefined();
