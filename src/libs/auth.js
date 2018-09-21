@@ -20,29 +20,30 @@
 
 'use strict';
 
-import request from 'request';
+import request from 'request-promise-native';
 import pemFromModAndExponent from 'rsa-pem-from-mod-exp';
 import { logger } from './logger';
 
 // eslint-disable-next-line import/prefer-default-export
-export const getJwtCertificate = ssoCertificateUrl => new Promise((resolve, reject) => {
-  if (!ssoCertificateUrl) {
-    reject(new Error('No certificate URL provided'));
-  }
-
-  request.get(ssoCertificateUrl, {}, (err, res, certsBody) => {
-    if (err) {
-      reject(err);
-      return;
+export const getJwtCertificate = ssoCertificateUrl =>
+  new Promise(async (resolve, reject) => {
+    if (!ssoCertificateUrl) {
+      reject(new Error('No certificate URL provided'));
     }
 
     try {
-      const keys = JSON.parse(certsBody);
-      if (keys.lengh === 0) {
+      const options = {
+        method: 'GET',
+        uri: ssoCertificateUrl,
+        json: true,
+      };
+
+      const response = await request(options);
+      if (response.keys && response.keys.length === 0) {
         reject(new Error('No keys in certificate body'));
       }
 
-      const certsJson = keys[0];
+      const certsJson = response.keys[0];
       const modulus = certsJson.n;
       const exponent = certsJson.e;
       const algorithm = certsJson.alg;
@@ -64,7 +65,7 @@ export const getJwtCertificate = ssoCertificateUrl => new Promise((resolve, reje
 
       // build a certificate
       const pem = pemFromModAndExponent(modulus, exponent);
-      resolve(pem);
+      resolve({ certificate: pem, algorithm });
     } catch (error) {
       const message = 'Unable to parse certificate(s)';
       logger.error(`${message}, error = ${error.message}`);
@@ -72,4 +73,41 @@ export const getJwtCertificate = ssoCertificateUrl => new Promise((resolve, reje
       reject(new Error(message));
     }
   });
-});
+
+export const fetchServiceAccountToken = async options => {
+  if (!options.uri) {
+    throw new Error('A URL must be provided');
+  }
+
+  if (!options.grantType) {
+    throw new Error('The grant type must be provided');
+  }
+
+  if (!options.clientId) {
+    throw new Error('The clientId must be provided');
+  }
+
+  if (!options.clientSecret) {
+    throw new Error('The clientSecret must be provided');
+  }
+
+  const ops = {
+    method: 'POST',
+    uri: options.uri,
+    form: {
+      grant_type: options.grantType,
+      client_id: options.clientId,
+      client_secret: options.clientSecret,
+    },
+    json: true,
+  };
+
+  try {
+    return request(ops);
+  } catch (err) {
+    const message = 'Unable to fetch JRT';
+    logger.error(`${message}, error = ${err.message}`);
+
+    throw new Error(message);
+  }
+};

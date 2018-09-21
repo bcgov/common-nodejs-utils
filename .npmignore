@@ -30,8 +30,6 @@ build
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-# Jetbrains IDEs
-.idea
-
-#/build # commented out intentionally, since this is the meat of the package.
-_book
+# Tests
+__mocks__
+__tests__
