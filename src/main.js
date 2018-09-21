@@ -21,7 +21,18 @@
 'use strict';
 
 export * from './constants';
-export { getJwtCertificate } from './libs/auth';
-export { bucketExists, createBucketIfRequired, expiredTopLevelObjects, getObject, isExpired, listBucket, presignedGetObject, putObject, removeObject, statObject } from './libs/bucket';
+export { getJwtCertificate, fetchServiceAccountToken } from './libs/auth';
+export {
+  bucketExists,
+  createBucketIfRequired,
+  expiredTopLevelObjects,
+  getObject,
+  isExpired,
+  listBucket,
+  presignedGetObject,
+  putObject,
+  removeObject,
+  statObject,
+} from './libs/bucket';
 export { logger, started } from './libs/logger';
 export { asyncMiddleware, errorWithCode, streamToBuffer } from './libs/utils';

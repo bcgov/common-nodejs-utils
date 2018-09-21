@@ -25,50 +25,73 @@ import pemFromModAndExponent from 'rsa-pem-from-mod-exp';
 import { logger } from './logger';
 
 // eslint-disable-next-line import/prefer-default-export
-export const getJwtCertificate = ssoCertificateUrl => new Promise(async (resolve, reject) => {
-  if (!ssoCertificateUrl) {
-    reject(new Error('No certificate URL provided'));
-  }
+export const getJwtCertificate = ssoCertificateUrl =>
+  new Promise(async (resolve, reject) => {
+    if (!ssoCertificateUrl) {
+      reject(new Error('No certificate URL provided'));
+    }
+
+    try {
+      const options = {
+        method: 'GET',
+        uri: ssoCertificateUrl,
+        json: true,
+      };
+
+      const response = await request(options);
+      if (response.keys && response.keys.length === 0) {
+        reject(new Error('No keys in certificate body'));
+      }
+
+      const certsJson = response.keys[0];
+      const modulus = certsJson.n;
+      const exponent = certsJson.e;
+      const algorithm = certsJson.alg;
+
+      if (!modulus) {
+        reject(new Error('No modulus'));
+        return;
+      }
+
+      if (!exponent) {
+        reject(new Error('No exponent'));
+        return;
+      }
+
+      if (!algorithm) {
+        reject(new Error('No algorithm'));
+        return;
+      }
+
+      // build a certificate
+      const pem = pemFromModAndExponent(modulus, exponent);
+      resolve({ certificate: pem, algorithm });
+    } catch (error) {
+      const message = 'Unable to parse certificate(s)';
+      logger.error(`${message}, error = ${error.message}`);
+
+      reject(new Error(message));
+    }
+  });
+
+export const fetchServiceAccountToken = async options => {
+  const ops = {
+    method: 'POST',
+    uri: options.uri,
+    form: {
+      grant_type: options.grantType,
+      client_id: options.clientId,
+      client_secret: options.clientSecret,
+    },
+    json: true,
+  };
 
   try {
-    const options = {
-      method: 'GET',
-      uri: ssoCertificateUrl,
-      json: true,
-    };
-    const response = await request(options);
+    return request(ops);
+  } catch (err) {
+    const message = 'Unable to fetch JRT';
+    logger.error(`${message}, error = ${err.message}`);
 
-    if (response.keys && response.keys.length === 0) {
-      reject(new Error('No keys in certificate body'));
-    }
-
-    const certsJson = response.keys[0];
-    const modulus = certsJson.n;
-    const exponent = certsJson.e;
-    const algorithm = certsJson.alg;
-
-    if (!modulus) {
-      reject(new Error('No modulus'));
-      return;
-    }
-
-    if (!exponent) {
-      reject(new Error('No exponent'));
-      return;
-    }
-
-    if (!algorithm) {
-      reject(new Error('No algorithm'));
-      return;
-    }
-
-    // build a certificate
-    const pem = pemFromModAndExponent(modulus, exponent);
-    resolve(pem);
-  } catch (error) {
-    const message = 'Unable to parse certificate(s)';
-    logger.error(`${message}, error = ${error.message}`);
-
-    reject(new Error(message));
+    throw new Error(message);
   }
-});
+};
