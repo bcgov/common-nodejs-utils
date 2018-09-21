@@ -111,3 +111,45 @@ export const fetchServiceAccountToken = async options => {
     throw new Error(message);
   }
 };
+
+// The Service Account JWT is meant to be refreshed
+// out-of-band. Presumably this means when it expires
+// don't use the refresh worflow, but just get a new token.
+// The `JWTServiceManager` class is meant to lightly wrap
+// the refresh mechanics for this.
+export class JWTServiceManager {
+  constructor(options) {
+    if (!options || Object.keys(options).length !== 4) {
+      throw new Error('Invalid options');
+    }
+    this.options = options;
+
+    (async () => {
+      await this.fetchToken();
+    })();
+  }
+
+  async fetchToken() {
+    this.data = await fetchServiceAccountToken(this.options);
+    this.lastFetchedAt = new Date();
+  }
+
+  get isTokenExpired() {
+    if (!this.lastFetchedAt) return true;
+
+    const then = new Date(this.lastFetchedAt.getTime());
+    then.setSeconds(then.getSeconds() + this.data.expires_in);
+
+    return then < new Date();
+  }
+
+  get accessToken() {
+    return (async () => {
+      if (this.isTokenExpired) {
+        await this.fetchToken();
+      }
+
+      return this.data.access_token;
+    })();
+  }
+}

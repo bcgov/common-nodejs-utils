@@ -18,7 +18,16 @@
 // Created by Jason Leach on 2018-07-20.
 //
 
-import { fetchServiceAccountToken, getJwtCertificate } from '../src/libs/auth';
+import { fetchServiceAccountToken, getJwtCertificate, JWTServiceManager } from '../src/libs/auth';
+
+const validOptions = {
+  uri: 'http://example.com/v1/token',
+  grantType: 'foo',
+  clientId: 'bar',
+  clientSecret: 'baz',
+};
+
+const invalidOptions = {};
 
 jest.mock('request-promise-native');
 
@@ -80,5 +89,39 @@ describe('Test authentication module', () => {
     expect(typeof certificate).toBe('string');
     expect(algorithm).toBeDefined();
     expect(typeof algorithm).toBe('string');
+  });
+
+  test('A the manager should reject invalid options', async () => {
+    expect(() => new JWTServiceManager()).toThrow(Error);
+    expect(() => new JWTServiceManager(invalidOptions)).toThrow(Error);
+  });
+
+  test('The manager should accept valid options', async () => {
+    const tm = new JWTServiceManager(validOptions);
+    expect(tm).toBeDefined();
+  });
+
+  test('The manager should fetch the service JWT', async () => {
+    const tm = new JWTServiceManager(validOptions);
+    expect(tm).toBeDefined();
+    expect(await tm.accessToken).toBeDefined();
+    expect(typeof (await tm.accessToken)).toBe('string');
+  });
+
+  test('The manager should initially have have no token', async () => {
+    const tm = new JWTServiceManager(validOptions);
+    expect(tm).toBeDefined();
+    expect(typeof (await tm.isTokenExpired)).toBe('boolean');
+    expect(await tm.isTokenExpired).toBe(true);
+  });
+
+  test('The manager should know if a JWT is expired', async () => {
+    const tm = new JWTServiceManager(validOptions);
+    expect(tm).toBeDefined();
+    // Once the token is accessed we know it should have a
+    // valid token.
+    await tm.accessToken;
+    expect(typeof (await tm.isTokenExpired)).toBe('boolean');
+    expect(await tm.isTokenExpired).toBe(false);
   });
 });
