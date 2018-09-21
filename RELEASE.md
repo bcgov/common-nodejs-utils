@@ -1,5 +1,9 @@
 # Release Notes
 
+## 0.0.13
+
+- Check options for service token request
+
 ## 0.0.12
 
 - Add function to fetch SSO service account token
