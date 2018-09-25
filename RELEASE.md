@@ -1,5 +1,10 @@
 # Release Notes
 
+## 0.0.16
+
+- Fix unhandled promise warnings
+- Update package lock
+
 ## 0.0.15
 
 - Fix exporting JWTServiceManager
