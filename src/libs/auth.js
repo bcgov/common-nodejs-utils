@@ -65,7 +65,10 @@ export const getJwtCertificate = ssoCertificateUrl =>
 
       // build a certificate
       const pem = pemFromModAndExponent(modulus, exponent);
-      resolve({ certificate: pem, algorithm });
+      resolve({
+        certificate: pem,
+        algorithm,
+      });
     } catch (error) {
       const message = 'Unable to parse certificate(s)';
       logger.error(`${message}, error = ${error.message}`);
@@ -125,13 +128,23 @@ export class JWTServiceManager {
     this.options = options;
 
     (async () => {
-      await this.fetchToken();
+      try {
+        await this.fetchToken();
+      } catch (err) {
+        const message = 'Unable to fetch JWT';
+        logger.error(`${message}, err = ${err.message}`);
+      }
     })();
   }
 
   async fetchToken() {
-    this.data = await fetchServiceAccountToken(this.options);
-    this.lastFetchedAt = new Date();
+    try {
+      this.data = await fetchServiceAccountToken(this.options);
+      this.lastFetchedAt = new Date();
+    } catch (err) {
+      const message = 'Unable to fetch JWT';
+      logger.error(`${message}, err = ${err.message}`);
+    }
   }
 
   get isTokenExpired() {
