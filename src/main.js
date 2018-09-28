@@ -1,3 +1,5 @@
+import ImplicitAuthManager from './libs/ImplicitAuthManager';
+
 //
 // SecureImage
 //
@@ -36,3 +38,6 @@ export {
 } from './libs/bucket';
 export { logger, started } from './libs/logger';
 export { asyncMiddleware, errorWithCode, streamToBuffer } from './libs/utils';
+export { ImplicitAuthManager } from './libs/ImplicitAuthManager.js';
+export { TypeCheck } from './libs/TypeCheck';
+export * from './libs/localStorage.js';
