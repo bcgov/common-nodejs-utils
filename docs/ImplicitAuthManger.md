@@ -207,3 +207,14 @@ these are mostly providers of constants that are attached to this class. They ar
   // sets the expiry timers via setTimeout
   // the onTokenExpired event is fired within the setTimeout callback
 ```
+
+#### handleOnPageLoad Routine
+
+This is the main routine that controls implicit auth.
+Here is a flow chart for the routine. 
+
+![flowchart](./images/flowchart.png)
+
+## Things that are missing
+
+At this point automatic refreshing of tokens is not implemented as the specification for its implementation is different compared to a traditional authorization flow.
