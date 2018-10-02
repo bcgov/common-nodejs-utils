@@ -1,10 +1,19 @@
 {
   "name": "@bcgov/nodejs-common-utils",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "",
   "engine": "node 8.4.0",
   "main": "index.js",
-  "author": "Jason C. Leach <jason.leach@fullboar.ca>",
+  "contributors": [
+    {
+      "name": "Jason Leach",
+      "email": "jason.leach@fullboar.ca"
+    },
+    {
+      "name": "Patrick Simonian",
+      "email": "patrick.simonian@gov.bc.ca"
+    }
+  ],
   "license": "Apache-2.0",
   "homepage": "https://github.com/bcgov/nodejs-common-utils",
   "engines": {
