@@ -314,11 +314,8 @@ export default class ImplicitAuthManager {
       return true;
     }
 
-    for (let key in tokens) {
-      const token = tokens[key];
-      expired += this.isTokenExpired(token);
-    }
-    return expired > 0;
+    return Object.keys(tokens)
+      .filter(item => this.isTokenExpired(tokens[item])).length > 0
   }
   // based on the hash value returned from an implicit auth redirect
   // return a parameter by its name
