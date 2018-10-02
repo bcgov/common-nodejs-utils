@@ -1,3 +1,5 @@
+import ImplicitAuthManager from './libs/ImplicitAuthManager';
+
 //
 // SecureImage
 //
@@ -21,7 +23,21 @@
 'use strict';
 
 export * from './constants';
-export { getJwtCertificate } from './libs/auth';
-export { bucketExists, createBucketIfRequired, expiredTopLevelObjects, getObject, isExpired, listBucket, presignedGetObject, putObject, removeObject, statObject } from './libs/bucket';
+export { getJwtCertificate, fetchServiceAccountToken, JWTServiceManager } from './libs/auth';
+export {
+  bucketExists,
+  createBucketIfRequired,
+  expiredTopLevelObjects,
+  getObject,
+  isExpired,
+  listBucket,
+  presignedGetObject,
+  putObject,
+  removeObject,
+  statObject,
+} from './libs/bucket';
 export { logger, started } from './libs/logger';
 export { asyncMiddleware, errorWithCode, streamToBuffer } from './libs/utils';
+export { ImplicitAuthManager } from './libs/ImplicitAuthManager.js';
+export { TypeCheck } from './libs/TypeCheck';
+export * from './libs/localStorage.js';
