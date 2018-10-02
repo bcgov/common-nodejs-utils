@@ -95,7 +95,7 @@ export class CryptoUtils {
 
 // ImplicitAuthManager takes two names in the local storage space
 // sso and auth. Please ensure these are not being overwritten by other functions.
-export default class ImplicitAuthManager {
+export class ImplicitAuthManager {
   constructor(config = {}) {
     //default config
     const defaultConfig = this.defaultConfig;
