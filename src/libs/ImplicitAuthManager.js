@@ -306,7 +306,6 @@ export default class ImplicitAuthManager {
   }
 
   areTokensExpired() {
-    let expired = 0;
     //get tokens
     const tokens = this.getAuthDataFromLocal();
 
