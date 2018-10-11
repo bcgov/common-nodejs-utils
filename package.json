@@ -1,12 +1,12 @@
 {
-  "name": "@bcgov/nodejs-common-utils",
+  "name": "@bcgov/common-nodejs-utils",
   "version": "0.0.16",
   "description": "",
   "engine": "node 8.4.0",
   "main": "index.js",
   "author": "Jason C. Leach <jason.leach@fullboar.ca>",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/bcgov/nodejs-common-utils",
+  "homepage": "https://github.com/bcgov/common-nodejs-utils",
   "engines": {
     "node": "8.4.0"
   },
@@ -52,7 +52,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:bcgov/nodejs-common-utils.git"
+    "url": "git+ssh://git@github.com:bcgov/common-nodejs-utils.git"
   },
   "jest": {
     "verbose": true,
