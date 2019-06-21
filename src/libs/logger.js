@@ -32,39 +32,11 @@ const { combine, timestamp, printf } = winston.format;
 const divider = chalk.gray('\n-----------------------------------');
 const myFormat = printf(info => `${info.timestamp} ${info.level}: ${info.message}`);
 
-// When testing log to a file for further analysis.
-if (process.env.NODE_ENV === ENVIRONMENTS.TEST) {
-  options.transports = [
-    new winston.transports.File({
-      format: combine(
-        timestamp(),
-        myFormat,
-      ),
-      filename: 'test.log',
-      level: 'info',
-    }),
-  ];
-} else if (process.env.NODE_ENV === ENVIRONMENTS.PRODUCTION) {
-  options.transports = [
-    new winston.transports.File({
-      format: combine(
-        timestamp(),
-        myFormat,
-      ),
-      filename: 'error.log',
-      level: 'error',
-    }),
-  ];
-} else {
-  options.transports = [
-    new winston.transports.Console({
-      format: combine(
-        timestamp(),
-        myFormat,
-      ),
-    }),
-  ];
-}
+options.transports = [
+  new winston.transports.Console({
+    format: combine(timestamp(), myFormat),
+  }),
+];
 
 /**
  * Re-export logger object
