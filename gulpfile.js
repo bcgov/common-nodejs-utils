@@ -1,6 +1,4 @@
 //
-// SecureImage
-//
 // Copyright © 2018 Province of British Columbia
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +16,26 @@
 // Created by Jason Leach on 2018-01-10.
 //
 
+/* eslint-env es6 */
+
 'use strict';
 
-require = require("esm")(module/*, options*/)
-module.exports = require("./src/main.js")
+const gulp = require('gulp');
+const babel = require('gulp-babel');
+const clean = require('gulp-clean');
+
+gulp.task('clean', () =>
+  gulp.src('dist', { read: false, allowEmpty: true }).pipe(
+    clean({
+      force: true,
+    })
+  )
+);
+
+gulp.task('transpile', () => gulp.src('src/**/*.js').pipe(babel()).pipe(gulp.dest('dist')));
+
+gulp.task('copy-node-config', () => {
+  return gulp.src(['package.json']).pipe(gulp.dest('dist'));
+});
+
+gulp.task('default', gulp.series('clean', gulp.parallel('transpile', 'copy-node-config')));

@@ -30,7 +30,7 @@ import { ENVIRONMENTS } from '../constants';
 const options = {};
 const { combine, timestamp, printf } = winston.format;
 const divider = chalk.gray('\n-----------------------------------');
-const myFormat = printf(info => `${info.timestamp} ${info.level}: ${info.message}`);
+const myFormat = printf((info) => `${info.timestamp} ${info.level}: ${info.message}`);
 
 options.transports = [
   new winston.transports.Console({
