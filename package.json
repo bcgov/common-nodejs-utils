@@ -17,6 +17,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist/**/*"
+  ],
   "dependencies": {
     "chalk": "^4.0.0",
     "ip": "^1.1.4",
@@ -53,7 +56,8 @@
     "build": "NODE_ENV=production gulp",
     "test": "NODE_ENV=test jest __tests__",
     "test:watch": "NODE_ENV=test jest __tests__ --watch",
-    "test:lint": "eslint --env node --ext .js src"
+    "test:lint": "eslint --env node --ext .js src",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
