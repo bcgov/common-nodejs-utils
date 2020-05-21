@@ -38,4 +38,4 @@ gulp.task('copy-node-config', () => {
   return gulp.src(['package.json']).pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', gulp.series('clean', gulp.parallel('transpile', 'copy-node-config')));
+gulp.task('default', gulp.series('clean', gulp.parallel('transpile')));

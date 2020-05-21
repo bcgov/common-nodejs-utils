@@ -1,8 +1,8 @@
 {
   "name": "@bcgov/common-nodejs-utils",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "contributors": [
     {
       "name": "Jason Leach",
@@ -21,6 +21,7 @@
     "dist/**/*"
   ],
   "dependencies": {
+    "@babel/runtime": "^7.9.6",
     "chalk": "^4.0.0",
     "ip": "^1.1.4",
     "minio": "^7.0.16",
