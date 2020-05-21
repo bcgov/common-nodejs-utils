@@ -3,6 +3,9 @@
   "version": "0.1.21",
   "description": "",
   "main": "dist/index.js",
+  "files": [
+    "dist/**/*"
+  ],
   "contributors": [
     {
       "name": "Jason Leach",
@@ -17,9 +20,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": [
-    "dist/**/*"
-  ],
   "dependencies": {
     "@babel/runtime": "^7.9.6",
     "chalk": "^4.0.0",
