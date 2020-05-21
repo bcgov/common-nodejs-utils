@@ -27,6 +27,8 @@ npm-debug.log
 task-definition.json
 *.sqlite
 *.zip
+*.tgz
+*.tar.gz
 
 # These files contain credentials, do not add them to
 # the repo.
