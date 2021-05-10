@@ -1,6 +1,6 @@
 {
   "name": "@bcgov/common-nodejs-utils",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -15,7 +15,7 @@
   "license": "Apache-2.0",
   "homepage": "https://github.com/bcgov/common-nodejs-utils",
   "engines": {
-    "node": "8.4.0"
+    "node": "12.16.3"
   },
   "publishConfig": {
     "access": "public"
